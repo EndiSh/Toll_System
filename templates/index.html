@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Plate Recognition</title>
+</head>
+<body>
+    <h1>Upload a Car Image</h1>
+
+    <!-- Form to upload image -->
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    {% if plate_text %}
+    <h2>License Plate Detected:</h2>
+    <p>{{ plate_text }}</p>
+    <img src="{{ url_for('static', filename='uploaded_images/' + image_path.split('/')[-1]) }}" alt="Uploaded Image">
+    {% endif %}
+
+    {% if ocr_image_path %}
+    <h4>OCR Input Image (after cropping and filtering):</h4>
+    <img src="{{ ocr_image_path }}" alt="OCR Input" style="max-width:300px;">
+    {% endif %}
+
+</body>
+</html>
